@@ -1,3 +1,4 @@
+import { ReadLettersFromCaptcha } from '../../domain/usecases/read-letters-from-captcha'
 import { BodyValidator } from '../protocols/body-validator-protocol'
 import { HttpRequest } from '../protocols/http-protocol'
 import { LettersCaptchaController } from './letters-captcha-controller'
@@ -12,24 +13,37 @@ const makeBodyValidatorStub = (): BodyValidator => {
   return new BodyValidatorStub()
 }
 
+const makeReadLettersFromCaptchaStub = (): ReadLettersFromCaptcha => {
+  class ReadLettersFromCaptchaStub implements ReadLettersFromCaptcha {
+    read (file: object): string {
+      return 'letters'
+    }
+  }
+
+  return new ReadLettersFromCaptchaStub()
+}
+
 interface SutTypes {
   sut: LettersCaptchaController
   bodyValidatorStub: BodyValidator
+  captchaReader: ReadLettersFromCaptcha
 }
 
 const makeSut = (): SutTypes => {
   const bodyValidatorStub = makeBodyValidatorStub()
-  const sut = new LettersCaptchaController(bodyValidatorStub)
+  const captchaReader = makeReadLettersFromCaptchaStub()
+  const sut = new LettersCaptchaController(bodyValidatorStub, captchaReader)
 
   return {
     sut,
-    bodyValidatorStub
+    bodyValidatorStub,
+    captchaReader
   }
 }
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
-    file: 'valid_file'
+    file: { data: 'valid_file' }
   }
 })
 
@@ -47,5 +61,12 @@ describe('LettersCaptcha Controller', () => {
     const response = await sut.handle(makeFakeHttpRequest())
     expect(response.statusCode).toEqual(400)
     expect(response.body.error).toEqual('error_message')
+  })
+
+  it('Should call Captcha Reader with correct value', async () => {
+    const { sut, captchaReader } = makeSut()
+    const readSpy = jest.spyOn(captchaReader, 'read')
+    await sut.handle(makeFakeHttpRequest())
+    expect(readSpy).toHaveBeenCalledWith(makeFakeHttpRequest().body.file)
   })
 })
