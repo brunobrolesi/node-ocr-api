@@ -69,4 +69,11 @@ describe('LettersCaptcha Controller', () => {
     await sut.handle(makeFakeHttpRequest())
     expect(readSpy).toHaveBeenCalledWith(makeFakeHttpRequest().body.file)
   })
+
+  it('Should return 200 and correct letters on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeHttpRequest())
+    expect(response.statusCode).toEqual(200)
+    expect(response.body.data).toEqual('letters')
+  })
 })
