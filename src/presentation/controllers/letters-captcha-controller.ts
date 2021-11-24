@@ -1,5 +1,5 @@
 import { ReadLettersFromCaptcha } from '../../domain/usecases/read-letters-from-captcha'
-import { badRequest } from '../helpers/http-helper'
+import { badRequest, ok } from '../helpers/http-helper'
 import { BodyValidator } from '../protocols/body-validator-protocol'
 import { Controller } from '../protocols/controller-protocol'
 import { HttpRequest, HttpResponse } from '../protocols/http-protocol'
@@ -13,7 +13,10 @@ export class LettersCaptchaController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     const error = this.bodyValidator.validate(httpRequest.body)
     if (error) return badRequest(error)
+
     const { file } = httpRequest.body
-    this.captchaReader.read(file)
+    const letters = this.captchaReader.read(file)
+
+    return ok(letters)
   }
 }
