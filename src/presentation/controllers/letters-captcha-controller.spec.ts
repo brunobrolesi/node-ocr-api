@@ -40,4 +40,12 @@ describe('LettersCaptcha Controller', () => {
     await sut.handle(makeFakeHttpRequest())
     expect(validateSpy).toHaveBeenCalledWith(makeFakeHttpRequest().body)
   })
+
+  it('Should return 400 and error message if body is not valid', async () => {
+    const { sut, bodyValidatorStub } = makeSut()
+    jest.spyOn(bodyValidatorStub, 'validate').mockReturnValueOnce(new Error('error_message'))
+    const response = await sut.handle(makeFakeHttpRequest())
+    expect(response.statusCode).toEqual(400)
+    expect(response.body.error).toEqual('error_message')
+  })
 })
