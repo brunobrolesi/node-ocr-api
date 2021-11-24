@@ -6,7 +6,14 @@ export class LettersCaptchaController implements Controller {
   constructor (private readonly bodyValidator: BodyValidator) {}
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    this.bodyValidator.validate(httpRequest.body)
-    return null
+    const error = this.bodyValidator.validate(httpRequest.body)
+    if (error) {
+      return {
+        body: {
+          error: error.message
+        },
+        statusCode: 400
+      }
+    }
   }
 }
