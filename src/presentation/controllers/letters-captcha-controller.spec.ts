@@ -76,4 +76,12 @@ describe('LettersCaptcha Controller', () => {
     expect(response.statusCode).toEqual(200)
     expect(response.body.data).toEqual('letters')
   })
+
+  it('Should return 500 if Captcha Reader throws', async () => {
+    const { sut, captchaReader } = makeSut()
+    jest.spyOn(captchaReader, 'read').mockImplementationOnce(() => { throw new Error() })
+    const response = await sut.handle(makeFakeHttpRequest())
+    expect(response.statusCode).toEqual(500)
+    expect(response.body.error).toEqual('internal server error')
+  })
 })
