@@ -2,7 +2,7 @@ import { Ocr } from '../../../data/protocols/ocr'
 import { ImageAnnotatorClient } from '@google-cloud/vision'
 
 export class GoogleVisionAdapter implements Ocr {
-  async read (file: object): Promise<string> {
+  async read (file: string): Promise<string> {
     const client = new ImageAnnotatorClient({
       keyFilename: 'api-key.json'
     })

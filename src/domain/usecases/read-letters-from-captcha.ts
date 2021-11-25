@@ -1,3 +1,3 @@
 export interface ReadLettersFromCaptcha {
-  read: (file: object) => Promise<string>
+  read: (file: string) => Promise<string>
 }

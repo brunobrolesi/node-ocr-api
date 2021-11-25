@@ -3,7 +3,7 @@ import { LetterCaptchaReader } from './letter-captcha-reader'
 
 const makeOcrStub = (): Ocr => {
   class OcrStub implements Ocr {
-    async read (file: object): Promise<string> {
+    async read (file: string): Promise<string> {
       return await Promise.resolve('text')
     }
   }
@@ -26,9 +26,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const makeFakeFile = (): object => ({
-  data: 'valid_file'
-})
+const makeFakeFile = (): string => 'valid_file'
 
 describe('LetterCaptchaReader', () => {
   it('Should call ocr with correct value', async () => {

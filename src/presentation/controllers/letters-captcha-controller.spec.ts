@@ -15,7 +15,7 @@ const makeBodyValidatorStub = (): BodyValidator => {
 
 const makeReadLettersFromCaptchaStub = (): ReadLettersFromCaptcha => {
   class ReadLettersFromCaptchaStub implements ReadLettersFromCaptcha {
-    async read (file: object): Promise<string> {
+    async read (file: string): Promise<string> {
       return await Promise.resolve('letters')
     }
   }
@@ -43,7 +43,7 @@ const makeSut = (): SutTypes => {
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
-    file: { data: 'valid_file' }
+    file: 'valid_file'
   }
 })
 
