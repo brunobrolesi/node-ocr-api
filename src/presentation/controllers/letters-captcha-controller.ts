@@ -1,3 +1,4 @@
+import { unlink } from 'fs'
 import { ReadLettersFromCaptcha } from '../../domain/usecases/read-letters-from-captcha'
 import { badRequest, ok, serverError } from '../helpers/http-helper'
 import { BodyValidator } from '../protocols/body-validator-protocol'
@@ -21,6 +22,14 @@ export class LettersCaptchaController implements Controller {
       return ok(letters)
     } catch (error) {
       return serverError()
+    } finally {
+      const { file } = httpRequest.body
+
+      unlink(file, (err) => {
+        if (err) {
+          console.error(err)
+        }
+      })
     }
   }
 }
