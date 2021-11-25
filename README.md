@@ -90,7 +90,7 @@ Para obter o texto de um determinado captcha, envie a imagem para o endpoint:
 
 `localhost:3000/api/letter-captcha`
 
-A imagem deve ser enviado no formato **multipart/form-data** utilizando a chave **file**
+A imagem deve ser enviada no formato **multipart/form-data** utilizando a chave **file**
 
 ### 🛠 Tecnologias
 
