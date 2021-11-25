@@ -37,4 +37,10 @@ describe('LetterCaptchaReader', () => {
     await sut.read(makeFakeFile())
     expect(readSpy).toHaveBeenCalledWith(makeFakeFile())
   })
+
+  it('Should returns a string on success', async () => {
+    const { sut } = makeSut()
+    const letters = await sut.read(makeFakeFile())
+    expect(letters).toBe('text')
+  })
 })
