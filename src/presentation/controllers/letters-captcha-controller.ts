@@ -16,7 +16,7 @@ export class LettersCaptchaController implements Controller {
       if (error) return badRequest(error)
 
       const { file } = httpRequest.body
-      const letters = this.captchaReader.read(file)
+      const letters = await this.captchaReader.read(file)
 
       return ok(letters)
     } catch (error) {
