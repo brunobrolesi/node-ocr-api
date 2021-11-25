@@ -15,8 +15,8 @@ const makeBodyValidatorStub = (): BodyValidator => {
 
 const makeReadLettersFromCaptchaStub = (): ReadLettersFromCaptcha => {
   class ReadLettersFromCaptchaStub implements ReadLettersFromCaptcha {
-    read (file: object): string {
-      return 'letters'
+    async read (file: object): Promise<string> {
+      return await Promise.resolve('letters')
     }
   }
 
