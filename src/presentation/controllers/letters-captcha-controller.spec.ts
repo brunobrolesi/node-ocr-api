@@ -2,6 +2,12 @@ import { ReadLettersFromCaptcha } from '../../domain/usecases/read-letters-from-
 import { BodyValidator } from '../protocols/body-validator-protocol'
 import { HttpRequest } from '../protocols/http-protocol'
 import { LettersCaptchaController } from './letters-captcha-controller'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as fs from 'fs'
+
+jest.mock('fs', () => ({
+  unlink (): void {}
+}))
 
 const makeBodyValidatorStub = (): BodyValidator => {
   class BodyValidatorStub implements BodyValidator {
