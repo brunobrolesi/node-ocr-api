@@ -43,4 +43,11 @@ describe('LetterCaptchaReader', () => {
     const letters = await sut.read(makeFakeFile())
     expect(letters).toBe('text')
   })
+
+  it('Should throws if ocr throws', async () => {
+    const { sut, ocrStub } = makeSut()
+    jest.spyOn(ocrStub, 'read').mockRejectedValueOnce(new Error())
+    const promise = sut.read(makeFakeFile())
+    await expect(promise).rejects.toThrow()
+  })
 })
