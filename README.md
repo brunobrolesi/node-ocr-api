@@ -1,6 +1,6 @@
 # API REST IMAGE OCR
 
-API REST desenvolvida utilizando o conceito de clean architecture e TDD. A aplicação é capaz retornar as letras contidas em uma imagem de um captcha.
+API REST desenvolvida utilizando o conceito de clean architecture e TDD. A aplicação é capaz de retornar as letras contidas em uma imagem de um captcha.
 
 ### Pré-requisitos
 
@@ -27,7 +27,7 @@ Com o projeto criado, agora devemos ir para a dashboard do mesmo, para isso siga
 
 ![alt text](doc/vision/5.png)
 
-Agora será necessário adicionar a bibliote Cloud Vision ao projeto, para isso siga os passos das próximas imagens:
+Agora será necessário adicionar a biblioteca Cloud Vision ao projeto, para isso siga os passos das próximas imagens:
 
 ![alt text](doc/vision/6.png)
 
@@ -69,24 +69,24 @@ $ cd node-ocr-api
 # Instale as dependências
 $ npm install
 
-# Defina as variáveis de ambiente em um arquivo .env seguindo o explempo fornecido, pode-se apenas renomea-lo para .env para facilitar o processo
+# Defina as variáveis de ambiente em um arquivo .env seguindo o exemplo fornecido, pode-se apenas renomea-lo para .env para facilitar o processo
 $ mv .env.example .env
 
 # Rode os testes (opcional)
 $ npm test
 
-# Rode o o comando de build
+# Rode o comando de build
 $ npm run build
 
 # Inicie o projeto
 $ npm start
 
-# O servidor inciará por padrão na porta:3000
+# O servidor iniciará por padrão na porta:3000
 ```
 
 ### 🛫 Rotas
 
-Para ober o texto de um determinado captcha, envie a imagem para o endpoint:
+Para obter o texto de um determinado captcha, envie a imagem para o endpoint:
 
 `localhost:3000/api/letter-captcha`
 
